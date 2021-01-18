@@ -21,9 +21,9 @@ public class StudentService{
 	StudentRepository studentRepository;
 	@Autowired Box<String> bx;
 	@Transactional
-	public int insertMany(int count) {
+	public long insertMany(int count) {
 		for(int i=0; i < count; i++) {
-			studentRepository.insert(dummy.makeStudent());
+			studentRepository.save(dummy.makeStudent());
 		}
 		return count();
 	}
@@ -31,19 +31,19 @@ public class StudentService{
 	public int truncate() {
 		bx.clear();
 		bx.put("TRUNCATE_STUDENTS", Sql.TRUNCATE.toString() + Table.STUDENTS);
-		studentRepository.truncate(bx);
+		studentRepository.deleteAll();
 		return count() != 0 ? 0 : 1;
 	}
 
-	public int count() {
+	public long count() {
 		bx.clear();
 		bx.put("COUNT_STUDENTS", Sql.TOTAL_COUNT.toString() +  Table.STUDENTS);
-		return studentRepository.count(bx);
+		return studentRepository.count();
 	}
 
 	public List<Student> list(Pagination page){
     	/*
-    	return studentMapper.list().stream()
+    	return studentRepository.list().stream()
     			.sorted(comparing(Student::getStuNum).reversed())
     			.skip(page.getPageSize() * (page.getPageNum()-1))
     			.limit(page.getPageSize())

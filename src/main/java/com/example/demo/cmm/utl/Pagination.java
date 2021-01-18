@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 public class Pagination {
 
 	private int totalCount, startRow, endRow,
-				pageCount, pageSize,  startPage, endPage, pageNum,
-				blockCount, prevBlock, nextBlock, blockNum;
-	
+			pageCount, pageSize,  startPage, endPage, pageNum,
+			blockCount, prevBlock, nextBlock, blockNum;
+
 	public final int BLOCK_SIZE = 5;
 	private String tname;
 	private boolean existPrev, existNext;
+	public Pagination(){}
 	// SQL 방식
 	public Pagination(String tname, int pageSize, int pageNum, int count) {
 		this.tname = tname;

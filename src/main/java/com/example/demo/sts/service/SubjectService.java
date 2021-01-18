@@ -28,12 +28,9 @@ public class SubjectService {
 		Subject s = null;
 		vcSubject.clear();
 		for(int i=0; i< count; i++) {
-			//s = new Subject();
-			//s.setDescription(l2.get(i));
-			//s.setSubject(l1.get(i));
-			//vcSubject.add(s);
+			s = new Subject();
+			subjectRepository.save(s);
 		}
-		subjectRepository.insertMany(vcSubject.get());
 	}
 
 	public Vector<GradeVo> groupBySubject(Box<String> bx){ //210
@@ -78,10 +75,5 @@ public class SubjectService {
 		return null;
 	}
 }
-
-
-
-
-
 
 

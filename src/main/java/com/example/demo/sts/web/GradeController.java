@@ -39,13 +39,12 @@ public class GradeController {
     @Autowired SubjectService subjectService;
     @Autowired TeacherService teacherService;
     @Autowired ManagerService managerService;
-    @Autowired
-    CommonRepository commonRepository;
     @Autowired Pagination page;
 
     @PostMapping("")
     public Messenger register(@RequestBody Grade g){
-        return gradeRepository.insert(g)==1?Messenger.SUCCESS:Messenger.FAILURE;
+        gradeRepository.save(g);
+        return Messenger.SUCCESS;
     }
 
     @GetMapping("/register")
@@ -54,7 +53,7 @@ public class GradeController {
         logger.info("Grade List Register ...");
         gradeService.insertMany();
         map.put("TOTAL_COUNT", Sql.TOTAL_COUNT.toString() + Table.GRADES);
-        return commonRepository.totalCount(map)!=0?Messenger.SUCCESS:Messenger.FAILURE;
+        return gradeRepository.count() !=0 ?Messenger.SUCCESS:Messenger.FAILURE;
     }
 
 
